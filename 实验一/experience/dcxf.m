@@ -44,7 +44,14 @@ while true
     %disp(Theta);
     Theta(Theta<=0) = 10000;
     %disp(Theta);
-    [~, q] = min(Theta);                                                   %选出最小θ
+    %disp(size(Theta,1));
+    %优化选取最小值的方案
+    for i=1:size(Theta,1)
+        if Theta(i,1)==min(Theta)
+           q=i;
+        end
+    end
+    %[~, q] = min(Theta);                                                   %选出最小θ
     %disp(q);
     %disp(s);
     q = index_Basis(q);                                                    %确定出基变量在系数矩阵中的列索引el, 主元为A(q,s)
