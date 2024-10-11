@@ -5,7 +5,7 @@ syms x
 f = x^4 - 4*x^3 - 6*x^2 - 16*x + 4;  % 目标函数 f(x)
 df = diff(f, x);
 ddf = diff(df, x);
-% 将求导后的符号表达式转换为匿名函数
+% 将符号表达式转换为匿名函数
 f = matlabFunction(f);
 df = matlabFunction(df);
 ddf = matlabFunction(ddf);
@@ -37,5 +37,5 @@ for i = 1:max_iterations
 end
 
 % 输出结果
-fprintf('在%d次迭代后, 最小值点的近似值为: %.6f\n', i, x);
-fprintf('最小值为: %.6f\n', f(x));
+fprintf('在牛顿法%d次迭代后, 最小值点的近似值为: %.6f\n', i, x);
+fprintf('函数最小值约为: %.6f\n', f(x));
