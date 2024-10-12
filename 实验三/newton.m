@@ -37,5 +37,6 @@ for i = 1:max_iterations
 end
 
 % 输出结果
-fprintf('在牛顿法%d次迭代后, 最小值点的近似值为: %.6f\n', i, x);
+fprintf('在牛顿法%d次迭代后:\n',i);
+fprintf('最小值点的近似值为: %.6f\n', x);
 fprintf('函数最小值约为: %.6f\n', f(x));

@@ -1,8 +1,8 @@
 clc,clear;
 % 定义符号变量
-syms x
+%syms x
 %定义函数和相关参数
-f = 3*x^3 - 4*x + 2;  % 目标函数 f(x)
+mf = @(x) 3*x^3 - 4*x + 2;  % 目标函数 f(x)
 % f = exp(-x) + x^2;  % 目标函数 f(x)
 % f = 2*x^2 - x - 1;  % 目标函数 f(x)
 
@@ -14,7 +14,7 @@ f = 3*x^3 - 4*x + 2;  % 目标函数 f(x)
 % ylabel('f(x)'); % 设置y轴标签
 
 % 将符号表达式转换为匿名函数
-mf = matlabFunction(f);
+%mf = matlabFunction(f);
 x1 = 0;%初始点
 h0 = 1;%初始步长
 k = 2;%步长放大倍数
@@ -60,7 +60,8 @@ for i = 1:max_iterations
     if mb - ma < tolerance
         my_ans = 0.5*(ma + mb);
         % 输出结果
-        fprintf('在经过618法%d次迭代后, 最小值点的近似值为: %.6f\n', i, my_ans);
+        fprintf('在0.618法%d次迭代后:\n',i);
+        fprintf('最小值点的近似值为: %.6f\n', my_ans);
         fprintf('函数最小值约为: %.6f\n', mf(my_ans));
         break;
     end
@@ -74,4 +75,3 @@ for i = 1:max_iterations
         c = ma + 0.382*(mb - ma);
     end
 end
-
