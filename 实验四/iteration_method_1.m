@@ -27,7 +27,7 @@ for iter = 1:maxIter
         %生成对应方向关于步长的一元函数
         lsf = @(lambda) mf(x(1)-lambda*gradient(1),x(2)-lambda*gradient(2));
         %得到lambda
-        %lambda=fminunc(lsf);
+        %lambda=fminunc(lsf,0);
         [lambda,~]=fminbnd(lsf,0,10);
         %更新初始点
         x(1) = x(1) + lambda * d(1);
