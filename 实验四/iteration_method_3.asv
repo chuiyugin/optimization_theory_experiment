@@ -9,12 +9,11 @@ grad_mf = @(x,y) [-400*x.*(y - x.^2) - 2*(1 - x); 200*(y - x.^2)];
 H = eye(2);%单位矩阵
 x0 = [0; 0]; % 初始点
 maxIter = 1000; % 最大迭代次数
-tolerance = 1e-3; % 精度
+tolerance = 1e-2; % 精度
 
 % 初始化
 x = x0;
 %迭代计算
-tic; % 开始计时
 for iter = 1:maxIter
     % 计算梯度矩阵
     gradient = grad_mf(x(1), x(2));
@@ -32,7 +31,7 @@ for iter = 1:maxIter
             continue
         else
              %生成对应方向关于步长的一元函数
-            lsf = @(lambda) mf(x(1)+lambda*d(1),x(2)+lambda*d(2));
+            lsf = @(lambda) mf(x(1)-lambda*gradient(1),x(2)-lambda*gradient(2));
             %得到lambda
             %lambda=fminunc(lsf);
             [lambda,~]=fminbnd(lsf,0,100);
@@ -41,7 +40,7 @@ for iter = 1:maxIter
             g_old = gradient;
             %更新初始点
             x(1) = x(1) + lambda * d(1);
-            x(2) = x(2) + lambda * d(2);
+            x(2) = x(2) + lambda * d(1);
             %计算p_k
             p_k = x - x_old;
             %计算q_k
@@ -49,12 +48,9 @@ for iter = 1:maxIter
             q_k = gradient - g_old;
             %更新矩阵H
             H = H + (p_k * p_k') /(p_k' * q_k) - (H * q_k * q_k' * H)/(q_k' * H * q_k);
-            %更新k
-            k = k+1;
+            %ge
         end 
     end
     % 输出最终结果
     fprintf('变尺度法第%d次迭代后: x=%.4f, y=%.4f, f(x,y)=%.4f\n', iter,x(1), x(2), mf(x(1), x(2)));
 end
-tElapsed = toc; % 结束计时并获取经过的时间
-fprintf('程序执行时间：%.5f秒\n', tElapsed);
