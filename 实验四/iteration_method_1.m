@@ -12,6 +12,11 @@ tolerance = 1e-2; % 精度
 
 % 初始化
 x = x0;
+
+%创建数据数组并画图
+array = [];
+figure; % 打开一个新图形窗口
+
 %迭代计算
 tic; % 开始计时
 for iter = 1:maxIter
@@ -34,8 +39,17 @@ for iter = 1:maxIter
         x(1) = x(1) + lambda * d(1);
         x(2) = x(2) + lambda * d(2);
     end
+    %更新数组结果
+    array = [array,mf(x(1), x(2))];
     % 输出最终结果
     fprintf('最速下降法第%d次迭代后: x=%.4f, y=%.4f, f(x,y)=%.4f\n', iter,x(1), x(2), mf(x(1), x(2)));
 end
+%画图
+plot(1:iter-1,array,'r--o','LineWidth', 2);
+grid on;
+title('最速下降法', 'FontSize', 18); % 添加标题
+xlabel('迭代次数', 'FontSize', 18); % 添加 x 轴标签
+ylabel('函数值', 'FontSize', 18); % 添加 y 轴标签
+
 tElapsed = toc; % 结束计时并获取经过的时间
 fprintf('程序执行时间：%.5f秒\n', tElapsed);
